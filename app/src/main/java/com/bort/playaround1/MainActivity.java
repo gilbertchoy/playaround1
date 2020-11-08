@@ -8,6 +8,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
     String tag = "berttest output";
     int ar[]=new int[7];  //mergeSort
+    int arr[]=new int[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(tag,"mergesort:");
         printValues(ar);
 
-
-
+        //heapsort
+        arr[0]=4;
+        arr[1]=5;
+        arr[2]=3;
+        arr[3]=1;
+        arr[4]=2;
+        arr[5]=6;
+        arr[6]=7;
+        heapSort(arr);
+        Log.d(tag,"heapsort:");
+        printValues(arr);
     }
 
     public void mergeSort(int l, int r){
@@ -104,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public int[] bubbleSort(int[] a){
         for(int i=0; i<a.length; i++){
             int swaps = 0;
@@ -121,9 +130,52 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
-
         return a;
     }
+
+    static void heapSort(int[] a){
+        int n = a.length;
+
+        //create binary heap
+        for(int i= n/2 - 1; i>=0; i--){
+            heapify(a,n,i);
+        }
+
+        for (int i=n-1;i>0; i--){
+            int temp = a[0];
+            a[0]=a[i];
+            a[i] = temp;
+
+            heapify(a, n, i);
+        }
+    }
+
+    static void heapify(int []a,int n,int i){  //n is always the same n = a.length
+        int largest = i;
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+
+        if(l<a.length && a[l]>a[largest]){
+            largest = l;
+        }
+        if(r<n && a[r]>a[largest]){
+            largest = r;
+        }
+
+        //if the current root node is not the largest then have to swap and keep heapifying next child as root
+        if(largest != i){
+            int swap = a[i];
+            a[i] = a[largest];
+            a[largest] = swap;
+
+            heapify(a, n, largest);
+        }
+
+
+    }
+
+
+
 
     public void printValues(int a[]){
         for(int i=0; i<a.length; i++){
