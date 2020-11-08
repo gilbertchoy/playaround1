@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         printValues(arr);
     }
 
+    /*
     public void mergeSort(int l, int r){
         Log.d(tag,"l:"+l+" r:"+r);
         if(l<r){
@@ -111,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
             rc++;
             index++;
         }
-
     }
+    */
 
     public int[] bubbleSort(int[] a){
         for(int i=0; i<a.length; i++){
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         return a;
     }
 
+    /*
     static void heapSort(int[] a){
         int n = a.length;
 
@@ -170,10 +172,50 @@ public class MainActivity extends AppCompatActivity {
 
             heapify(a, n, largest);
         }
-
-
     }
 
+    */
+
+
+    static void heapSort(int[] a){
+        int n = a.length;
+
+        for(int i = n - 1; i > 0; i--){
+            heapify(a, n, i);
+        }
+
+        for (int i = n-1; i>0; i--){
+            int swap = a[i];
+            a[0] = a[i];
+            a[i] = swap;
+
+            heapify(a,n,i);
+        }
+    }
+
+    static void heapify(int[] a, int n,int i){
+
+        int largest = i;
+        int l = 2*i+1;
+        int r = 2*i + 1;
+
+        if(l<n && a[l]>a[largest]){
+            largest = l;
+        }
+
+        if(r<n && a[r]>a[largest]){
+            largest = r;
+        }
+
+        if(largest != i){
+            int swap = a[i];
+            a[i] = a[largest];
+            a[largest] = a[i];
+
+            heapify(a,n,largest);
+        }
+
+    }
 
 
 
@@ -194,5 +236,56 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+    static void mergeSort(int[] a, int l, int r){
+        if(l<r){
+          int m = (l+r)/2;
+          mergeSort(a,l,m);
+          mergeSort(a,m+1,r);
+          merge(a,l,m,r);
+        }
+    }
+
+    static void merge(int[] a, int l, int m, int r){
+        int Lsize = m-l+1;
+        int Rsize = r-m;
+
+        int[] left = new int[m-l+1];
+        int[] right = new int[r-m];
+
+        for(int i=0; i<left.length; i++){
+            left[i] = a[l+i];
+        }
+        for(int i=0; i<right.length; i++){
+            right[i] = a[m+i];
+        }
+
+        int lc=0;
+        int rc=0;
+        int index = l;
+        while(lc<Lsize && rc<Rsize){
+            if(left[lc]<right[rc]){
+                a[index] = left[lc];
+                lc++;
+            }
+            else{
+                a[index] = right[rc];
+                rc++;
+            }
+            index++;
+        }
+
+        while(lc<Lsize){
+            a[index] = left[lc];
+            lc++;
+            index++;
+        }
+
+
+
+    }
+
 
 }
