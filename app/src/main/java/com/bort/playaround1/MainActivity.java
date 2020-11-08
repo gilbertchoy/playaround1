@@ -14,6 +14,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //factorial
+        int facResult = this.factorial(3);
+        Log.d("tag","factorial result:" + facResult);
+
         //bubblesort
         int a[]=new int[7];
         a[0]=4;
@@ -45,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
     public void mergeSort(int l, int r){
         Log.d(tag,"l:"+l+" r:"+r);
         if(l<r){
-            int m = l+((l+r)/2);
-            if(m+1<r) {
+            int m = l+((r-l)/2);
+            if((m+1)<r) {
                 mergeSort(m + 1, r);
             }
             if(l<m) {
-                mergeSort(l, m-1);
+                mergeSort(l, m);
             }
             merge(l,r,m);
         }
@@ -127,5 +131,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //factorial
+    public int factorial(int x){
+
+        if(x==1){
+            return 1;
+        }else{
+            return x * factorial(x-1);
+        }
+
+    }
 
 }
