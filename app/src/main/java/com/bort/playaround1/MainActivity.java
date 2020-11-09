@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+/*
     static void mergeSort(int[] a, int l, int r){
         if(l<r){
             int m = l+r/2;
@@ -301,6 +301,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+ */
+
+
     static void heapSort(int[] a){
         int n = a.length;
 
@@ -339,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     public static void quickSort(int[] a, int l, int r){
         if(l<r){
             int pi = partition(a,l,r);
@@ -348,19 +352,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+     */
+/*
     public static int partition(int[] a, int l, int r){
         int pivot = a[r];
-        int i = l-1;
+        int i = l-1;        //i is position of last variable greater than pivot
         for(int j = l; j<r; j++){
-            i++;
             if(a[j]<pivot){
+                i++;        //i increases each time there's a number smaller than pivot
                 int temp = a[j];
                 a[j] = a[i];
                 a[i]=temp;
             }
         }
 
-        //swap pivot at
+        //swap pivot to position at i+1 to put pivot in place
         int temp = a[i+1];
         a[i+1] = a[r];
         a[r] = temp;
@@ -368,9 +374,128 @@ public class MainActivity extends AppCompatActivity {
         return i+1;
     }
 
+ */
 
 
 
+
+    public static void mergeSort (int[] a, int l, int r){
+        if(l<r){
+            int m = l+r/2;
+            mergeSort(a,l,m);
+            mergeSort(a,m+1,r);
+            merge(a,l,m,r);
+        }
+    }
+
+
+    public static void quickSort(int[] a, int l, int r){
+        if(l<r){
+            //partition a rigtmost variable to correct index
+            int pi = partition(a,l,r);
+            quickSort(a,l,pi-1);
+            quickSort(a,pi+1,r);
+        }
+    }
+
+    public static int partition(int[] a, int l, int r){
+        int pivot = a[r];
+        int i = l-1;    //increases for each variable to left of pivot
+
+        for(int j = l; j<r; j++){
+            if(a[j]<pivot){
+                i++;
+                //swap
+                int swap = a[j];
+                a[j] = a[i];
+                a[i] = swap;
+            }
+        }
+
+        //swap pivot
+        int swap = a[r];
+        a[r] = a[i+1];
+        a[i+1] = swap;
+        return a[i+1];
+    }
+
+
+    public static void qSort(int[] a, int l, int r){
+        int pi = partytition(a, l, r);
+        qSort(a,l,pi-1);
+        qSort(a,pi+1,r);
+    }
+
+    public static int partytition(int[]a, int l, int r){
+        int pivot = a[r];
+        int i = l-1;
+
+        for(int j; j<r; j++){
+            if(a[j]<pivot){
+                i++;
+                //swap a[j] and a[i]
+                int swap = a[j];
+                a[j] = a[i];
+                a[i] = swap;
+            }
+        }
+
+        //swap pivot into corect position
+        int temp = a[i+1];
+        a[i+1] = a[r];
+        a[r] = temp;
+
+        return i+1;
+    }
+
+    public static void mSort(int[] a, int l, int r){
+        if(l<r){
+            int m = (l+r)/2;
+            mSort(a,l,m);
+            mSort(a,m+1,r);
+            mmerge(a,l, m,r);
+        }
+    }
+
+    public static void mmerge(int[] a, int l, int m, int r){
+        int lLength = m-l+1;
+        int rLength = r-m;
+        int[] left = new int[lLength];
+        int[] right = new int[rLength];
+
+        for(int i=0; i<left.length; i++){
+            left[i] = a[l+i];
+        }
+        for(int i=0; i<right.length; i++){
+            right[i] = a[m+1+i];
+        }
+
+        int lc = 0;
+        int rc = 0;
+        int index = l;
+        while(lc<left.length && rc<right.length){
+            if(left[lc]>right[rc]){
+                a[index] = left[lc];
+                lc++;
+            }else{
+                a[index] = right[rc];
+                rc++;
+            }
+            index++;
+        }
+
+        while(lc<left.length){
+            a[index] = left[lc];
+            lc++;
+            index++;
+        }
+
+        while(rc<right.length){
+            a[index] = right[rc];
+            rc++;
+            index++;
+        }
+    }
 
 
 }
